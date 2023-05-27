@@ -14,7 +14,7 @@ function Login() {
   const navigate = useNavigate();
   const handleLogin=(e)=>{
     e.preventDefault();
-    const auth = getAuth(firebase);
+    const auth = getAuth();
 signInWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     // Signed in 

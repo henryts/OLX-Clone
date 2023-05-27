@@ -4,11 +4,15 @@ import './Signup.css';
 import { FirebaseContext } from '../../store/firebaseContext';
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import Firebase from '../../firebase/config';
-import { initializeApp } from "firebase/app";
+
 import { getFirestore } from "firebase/firestore";
 import { collection, addDoc } from "firebase/firestore"; 
 
+
 import { useNavigate} from 'react-router-dom'
+import {  onAuthStateChanged } from "firebase/auth";
+import {  updateProfile } from "firebase/auth";
+
 
 
 
@@ -28,13 +32,24 @@ export default function Signup() {
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      // Signed in 
-      const user = userCredential.user;
-    //  console.log(user);
-      // userCredential.user.updateProfile({ displayName: username })
-        // .then(() => {
+      const auth = getAuth();
+      updateProfile(auth.currentUser, {
+        displayName: username
+      }).then(() => {
+        // Profile updated!
+        alert("changed")
+        // ...
+      }).catch((error) => {
+        // An error occurred
+        // ...
+      });
+      
+        
+        
+      })
           try {
             const docRef =  addDoc(collection(db, "users"), {
+              email:email,
               username:username,
               password: password,
               phone: phone
@@ -56,8 +71,8 @@ export default function Signup() {
           //   console.log(errorMessage);
           //   // ...
           // });
-        });
-    };
+        };
+    
   
   return (
     <div>

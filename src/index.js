@@ -10,6 +10,8 @@ ReactDOM.render(
     <FirebaseContext.Provider value = {{firebase}}>
 
 <BrowserRouter>
+<Context>
 <App />
+</Context>
 </BrowserRouter></FirebaseContext.Provider>, document.getElementById('root'));
 
